@@ -34,7 +34,7 @@ header {
   margin-left: 20px;
 }
 
-nav {
+#nav {
   float: right;
 }
 
@@ -58,4 +58,7 @@ nav {
   color:red;
   border: 0.2px solid #fff;
   background: #fff !important;
+}
+#airQ~body{
+  color: red;
 }

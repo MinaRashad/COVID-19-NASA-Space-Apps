@@ -11,7 +11,7 @@
 			<div class="logo">
 				<h2>covid 19 environmental impacts</h2>
 			</div>
-			<nav>
+			<div id="nav">
 				<ul>
 					<li id="airQ" class="item"><a > Air quality </a></li>
 					<li id="waterQ" class="item"><a > Water quality </a></li>
@@ -19,11 +19,88 @@
 					<li id="bio" class="item"><a > biological diversity </a></li>
 					<li id="about" class="item"><a >About Us</a></li>
 				</ul>
-			</nav>
+			</div>
 		</header>
 		</div>
-			<br>
 
-			hello?
+<canvas id="chart">
+	
+</canvas>
+<script type="text/javascript" src="./js/Chart.bundle.js"></script>
+<script type="text/javascript">
+	var canv = document.getElementById('chart')
+	var ctx = canv.getContext('2d')
+	var canvWidth = canv.width
+	var canvHieght = canv.height 
+	ctx.fillStyle = "#f0f0f0"
+	ctx.fillRect(0,0,canvWidth,canvHieght)
+//Getting the data
+	var countries = []
+	var countryData = []
+	var APIurl = "https://api.covid19api.com/summary"
+	var req = new XMLHttpRequest()
+
+	req.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var json= JSON.parse(this.responseText);
+        formatData(json);
+	    }
+	};
+
+	req.open("GET", APIurl, true);
+	req.send();
+	function formatData(json){
+		console.log(json)// use the json to get the data, and array of countires using for loop
+	}
+
+	var chart = new Chart(ctx, {
+		type:'bar',
+		data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],//replace with counties
+        datasets: [{
+            label: 'Infected',
+            data: [2,2,10,5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'],
+            borderWidth: 1
+        },
+        {
+        	label: 'recovered',
+            data: [2,2,10,5, 2, 3],//put here the data
+            backgroundColor: [
+                'rgba(99,255,132,0.2)'
+            ],
+            borderColor: [
+                'rgba(99, 255, 132, 1)'],
+            borderWidth: 1
+        },
+          {
+        	label: 'uninfected',
+            data: [2,2,10,5, 2, 3],//put here the data
+            backgroundColor: [
+                'rgba(99,255,132,0.2)'
+            ],
+            borderColor: [
+                'rgba(99, 255, 132, 1)'],
+            borderWidth: 1
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+	
+</script>
 </body>
 </html>
